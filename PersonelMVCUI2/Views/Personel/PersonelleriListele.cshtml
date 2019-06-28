@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PersonelMVCUI2.Models.EntityFramework.Personel>
+
+<hr />
+<h2 class="toast-header">PERSONEL LİSTESİ</h2>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>AD</th>
+            <th>SOYAD</th>
+            <th>MAAŞ</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var personel in Model)
+        {
+            <tr>
+                <td>@personel.Ad</td>
+                <td>@personel.Soyad</td>
+                
+                <td>@personel.Maas TL</td>
+            </tr>
+        }
+    </tbody>
+</table>

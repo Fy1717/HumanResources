@@ -1,0 +1,49 @@
+﻿@model List<PersonelMVCUI2.Models.EntityFramework.Personel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<body>
+    <br />
+    <br />
+    <h2 class="toast-header">PERSONEL LİSTESİ</h2>
+    <table class="table table-bordered" id="tblPersoneller">
+
+        <thead>
+            <tr>
+                <th> AD </th>
+                <th> SOYAD </th>
+                <th> DEPARTMAN </th>
+                <th> MAAŞ </th>
+                <th> CİNSİYET </th>
+                <th> GÜNCELLE </th>
+                <th> SİL </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var personel in Model)
+            {
+                <tr>
+                    <td>@personel.Ad</td>
+                    <td>@personel.Soyad</td>
+                    <td>@personel.DepartmanId</td>
+                    <td>@personel.Maas</td>
+                    <td>@(personel.Cinsiyet == true ? "Erkek" : "Kadın")</td>
+                    <td>@Html.ActionLink("Güncelle", "Guncelle", new { id = personel.Id }, new { @class = "btn btn-primary" })</td>
+                    <td>@Html.ActionLink("Sil", "Sil", new { id = personel.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    @Html.ActionLink("YENİ PERSONEL EKLE", "Yeni", null, new { @class = "btn btn-success" })
+
+    <br />
+    <hr />
+
+
+</body>
+
+

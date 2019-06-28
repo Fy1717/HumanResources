@@ -1,0 +1,72 @@
+﻿@model PersonelMVCUI2.Models.EntityFramework.Kullanici
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+
+        #allDiv {    
+            background-color : white;
+            border: 15px solid white;
+            border-radius : 15px;
+            text-align: center;
+            padding: 10px;
+            margin-top: 5%;
+            color:gray;     
+        }
+        #kolon {
+            float: left;
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #forms{
+            margin-left:20px;
+        }
+
+    </style>
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background-color:wheat">
+    <div class="container col-md-4 ">
+        @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+        {
+
+            <div id="allDiv">
+                <div><h2> Login Page </h2></div>
+                <hr />
+                <div><img src="~/Pictures/lock_icon.jpg" width="200" height="200" /></div>
+                <hr />
+
+                <div id="forms">
+
+                    <div class="form-group">
+                        <div id="kolon"><img src="~/Pictures/user.png" width="35" height="35" /></div>
+                        <div id="kolon">@Html.TextBoxFor(m => m.Ad, new { @class = "form-control", type = "text", placeholder = "Kullanıcı Adınızı Girin" })</div>
+                    </div>
+                    <div class="form-group">
+                        <div id="kolon"><img src="~/Pictures/password.jpg" width="35" height="35" /></div>
+                        <div id="kolon">@Html.TextBoxFor(m => m.Sifre, new { @class = "form-control", type = "password", placeholder = "Parolanızı Girin" }) <br /></div>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-block btn-success">GİRİŞ</button>
+
+            </div>
+
+            <p class="footer-text text-center">copyright © 2019 FY. All rights reserved.</p>
+            @ViewBag.Mesaj
+        }
+
+    </div>
+</body>
+</html>

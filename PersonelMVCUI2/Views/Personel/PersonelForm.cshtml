@@ -1,0 +1,64 @@
+﻿@model PersonelMVCUI2.ViewModels.PersonelFormViewModel
+@{
+    ViewBag.Title = "PersonelForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<h2 class="toast-header">PERSONEL FORMU</h2>
+<div id="mesaj"></div>
+
+@using (Ajax.BeginForm("Kaydet", "Personel", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mesaj" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Ad)
+        @Html.TextBoxFor(m => m.Personel.Ad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personel.Ad)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Soyad)
+        @Html.TextBoxFor(m => m.Personel.Soyad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personel.Soyad)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.DepartmanId)
+        @Html.DropDownListFor(m => m.Personel.DepartmanId, new SelectList(Model.Departmanlar, "Id", "Ad"), "Departman Seçiniz", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personel.DepartmanId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.Maas)
+        @Html.TextBoxFor(m => m.Personel.Maas, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personel.Maas)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Personel.DogumTarihi)
+        @Html.TextBoxFor(m => m.Personel.DogumTarihi, "{0:yyy-mm-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.Personel.DogumTarihi)
+    </div>
+
+    <div class="custom-radio">
+        <label>
+            @Html.RadioButtonFor(m => m.Personel.Cinsiyet, true) ERKEK
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.Personel.Cinsiyet, false) KADIN
+        </label>
+    </div>
+    <br />
+
+    @Html.HiddenFor(m => m.Personel.Id)
+    <button type="submit" class="btn btn-primary"> KAYDET </button>
+    <br />
+
+}
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

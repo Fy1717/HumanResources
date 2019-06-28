@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PersonelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Personel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmanId" Type="int" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Maas" Type="float" />
+          <Property Name="DogumTarihi" Type="datetime" />
+          <Property Name="Cinsiyet" Type="bit" />
+          <Property Name="EvliMİ" Type="bit" />
+        </EntityType>
+        <EntityType Name="Works">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonelId" Type="int" Nullable="false" />
+          <Property Name="TeslimTarihi" Type="datetime" Nullable="false" />
+          <Property Name="Durum" Type="bit" Nullable="false" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_Personel_Departman">
+          <End Role="Departman" Type="Self.Departman" Multiplicity="0..1" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Personel">
+              <PropertyRef Name="DepartmanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Works" Type="Self.Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="PersonelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PersonelManagementModelStoreContainer">
+          <EntitySet Name="Departman" EntityType="Self.Departman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Works" EntityType="Self.Works" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Personel_Departman" Association="Self.FK_Personel_Departman">
+            <End Role="Departman" EntitySet="Departman" />
+            <End Role="Personel" EntitySet="Personel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_Personel" Association="Self.FK_Works_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PersonelManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Departman" FromRole="Departman" ToRole="Personel" />
+        </EntityType>
+        <EntityType Name="Personel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmanId" Type="Int32" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Maas" Type="Double" />
+          <Property Name="DogumTarihi" Type="DateTime" Precision="3" />
+          <Property Name="Cinsiyet" Type="Boolean" />
+          <Property Name="EvliMİ" Type="Boolean" />
+          <NavigationProperty Name="Departman" Relationship="Self.FK_Personel_Departman" FromRole="Personel" ToRole="Departman" />
+          <NavigationProperty Name="Works" Relationship="PersonelManagementModel.FK_Works_Personel" FromRole="Personel" ToRole="Works" />
+        </EntityType>
+        <Association Name="FK_Personel_Departman">
+          <End Role="Departman" Type="Self.Departman" Multiplicity="0..1" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Personel">
+              <PropertyRef Name="DepartmanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PersonelManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departman" EntityType="Self.Departman" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" />
+          <AssociationSet Name="FK_Personel_Departman" Association="Self.FK_Personel_Departman">
+            <End Role="Departman" EntitySet="Departman" />
+            <End Role="Personel" EntitySet="Personel" />
+          </AssociationSet>
+          <EntitySet Name="Kullanici" EntityType="PersonelManagementModel.Kullanici" />
+          <EntitySet Name="Works" EntityType="PersonelManagementModel.Works" />
+          <AssociationSet Name="FK_Works_Personel" Association="PersonelManagementModel.FK_Works_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Works">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonelId" Type="Int32" Nullable="false" />
+          <Property Name="TeslimTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Durum" Type="Boolean" Nullable="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Personel" Relationship="PersonelManagementModel.FK_Works_Personel" FromRole="Works" ToRole="Personel" />
+        </EntityType>
+        <Association Name="FK_Works_Personel">
+          <End Type="PersonelManagementModel.Personel" Role="Personel" Multiplicity="1" />
+          <End Type="PersonelManagementModel.Works" Role="Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="PersonelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PersonelManagementModelStoreContainer" CdmEntityContainer="PersonelManagementEntities">
+          <EntitySetMapping Name="Departman">
+            <EntityTypeMapping TypeName="PersonelManagementModel.Departman">
+              <MappingFragment StoreEntitySet="Departman">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personel">
+            <EntityTypeMapping TypeName="PersonelManagementModel.Personel">
+              <MappingFragment StoreEntitySet="Personel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DepartmanId" ColumnName="DepartmanId" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Maas" ColumnName="Maas" />
+                <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+                <ScalarProperty Name="EvliMİ" ColumnName="EvliMİ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanici">
+            <EntityTypeMapping TypeName="PersonelManagementModel.Kullanici">
+              <MappingFragment StoreEntitySet="Kullanici">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="PersonelManagementModel.Works">
+              <MappingFragment StoreEntitySet="Works">
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="TeslimTarihi" ColumnName="TeslimTarihi" />
+                <ScalarProperty Name="PersonelId" ColumnName="PersonelId" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

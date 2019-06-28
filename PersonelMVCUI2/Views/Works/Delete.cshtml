@@ -1,0 +1,68 @@
+﻿@model PersonelMVCUI2.Models.EntityFramework.Works
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<br />
+<h3>Silmek istediğinizden emin misiniz ?</h3>
+<div>
+    <hr />
+    <br />
+    <dl class="dl-horizontal">
+        <dt>
+            KATEGORİ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kategori)
+        </dd>
+
+        <dt>
+            TESLİM TARİHİ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeslimTarihi)
+        </dd>
+
+        <dt>
+           DURUM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Durum)
+        </dd>
+
+        <dt>
+            AÇIKLAMA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aciklama)
+        </dd>
+
+        <dt>
+            SORUMLU PERSONEL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personel.Ad)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> 
+            @Html.ActionLink("Listeye Dön", "Index"  ,null, new { @class = "btn btn-warning" })
+            <br />
+        </div>
+    }
+</div>

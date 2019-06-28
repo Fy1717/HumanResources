@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PersonelMVCUI2.Models.EntityFramework.Works>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<br />
+<h2 class="toast-header">İŞ YÖNETİMİ</h2>
+
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th> KATEGORİ</th>
+            <th> TESLİM TARİHİ</th>
+            <th> DURUM</th>
+            <th> AÇIKLAMA</th>
+            <th> SORUMLU</th>
+            <th> GÜNCELLE </th>
+            <th> DETAY </th>
+            <th> SİL </th>
+        </tr>
+    </thead>
+    @foreach (var work in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelwork => work.Kategori)
+            </td>
+            <td>
+                @Html.DisplayFor(modelwork => work.TeslimTarihi)
+            </td>
+            <td>
+                @(work.Durum == true ? "Tamamlandı" : "Tamamlanmadı" )
+            </td>
+            <td>
+                @Html.DisplayFor(modelwork => work.Aciklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelwork => work.Personel.Ad)
+                @Html.DisplayFor(modelwork => work.Personel.Soyad)
+<td>
+                @Html.ActionLink("Güncelle", "Edit", new { id = work.Id }, new { @class = "btn btn-primary" })
+            </td>
+            <td>
+                @Html.ActionLink("Detay", "Details", new { id = work.Id }, new { @class = "btn btn-warning" })
+            </td>
+            <td>
+                @Html.ActionLink("Sil", "Delete", new { id = work.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("YENİ İŞ EKLE", "Create", null, new { @class = "btn btn-success" })
+<br />
+<hr />

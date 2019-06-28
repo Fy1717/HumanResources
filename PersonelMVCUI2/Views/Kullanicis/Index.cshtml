@@ -1,0 +1,57 @@
+﻿@model IEnumerable<PersonelMVCUI2.Models.EntityFramework.Kullanici>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<body>
+    <br />
+    <br />
+    <h2 class="toast-header">KULLANICI LİSTESİ</h2>
+    <table class="table table-bordered" id="tblKullanicis">
+        <thead>
+            <tr>
+                <th> AD</th>
+                <th> PAROLA</th>
+                <th> ROL</th>
+                <th> GÜNCELLE </th>
+                <th> DETAY </th>
+                <th> SİL </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sifre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Güncelle", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detay", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sil", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    @Html.ActionLink("YENİ KULLANICI EKLE", "Create", null, new { @class = "btn btn-success" })
+
+    <br />
+    <hr />
+
+</body>

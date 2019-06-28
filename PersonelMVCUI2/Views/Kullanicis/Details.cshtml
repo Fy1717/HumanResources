@@ -1,0 +1,43 @@
+﻿@model PersonelMVCUI2.Models.EntityFramework.Kullanici
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <br />
+    <h4 > KULLANICI </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            AD
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ad)
+        </dd>
+
+        <dt>
+            PAROLA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sifre)
+        </dd>
+
+        <dt>
+            ROL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Güncelle", "Edit", null, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Listeye Dön", "Index", null, new { @class = "btn btn-warning" })
+</p>

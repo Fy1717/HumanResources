@@ -1,0 +1,59 @@
+﻿@model PersonelMVCUI2.Models.EntityFramework.Works
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <br />
+    <h4> İŞ </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            KATEGORİ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kategori)
+        </dd>
+
+        <dt>
+            TESLİM TARİHİ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeslimTarihi)
+        </dd>
+
+        <dt>
+            DURUM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Durum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aciklama)
+        </dt>
+
+        <dd>
+            AÇIKLAMA
+        </dd>
+
+        <dt>
+            SORUMLU PERSONEL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personel.Ad)
+            @Html.DisplayFor(model => model.Personel.Soyad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Güncelle", "Edit", null ,new { id = Model.Id ,@class = "btn btn-primary" }) 
+    @Html.ActionLink("Listeye Dön", "Index", null, new { @class = "btn btn-warning" })
+</p>
